@@ -4,10 +4,15 @@
   self,
   ...
 }: {
+  imports = [
+    ./home.nix
+    self.inputs.home-manager.darwinModules.default
+  ];
+
   environment.systemPackages = with pkgs; [
+    eza
     git
-    helix
-    vscode
+    rclone
   ];
 
   fonts.packages = with pkgs; [
@@ -38,7 +43,7 @@
     localHostName = "fortree";
   };
 
-  nix.enable = false;
+  nix.enable = false; # We use determinate's distro (for now).
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -52,7 +57,6 @@
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
-
   services.openssh.enable = true;
 
   system = {
@@ -88,6 +92,7 @@
 
   users.users.aly = {
     description = "Aly Raffauf";
+    home = "/Users/aly";
 
     openssh.authorizedKeys = {
       keyFiles =

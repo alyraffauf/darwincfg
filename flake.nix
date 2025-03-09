@@ -40,8 +40,11 @@
         });
   in {
     darwinConfigurations."fortree" = self.inputs.nix-darwin.lib.darwinSystem {
+      modules = [
+        ./hosts/fortree
+      ];
+
       specialArgs = {inherit self;};
-      modules = [./hosts/fortree];
     };
 
     devShells = forAllSystems ({pkgs}: {
@@ -68,5 +71,6 @@
     });
 
     formatter = forAllSystems ({pkgs}: pkgs.alejandra);
+    homeManagerModules.aly = ./homes/aly;
   };
 }
