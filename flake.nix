@@ -13,6 +13,11 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    secrets = {
+      url = "github:alyraffauf/secrets";
+      flake = false;
+    };
   };
 
   outputs = {self, ...}: let

@@ -107,7 +107,24 @@
       "inputs": {
         "agenix": "agenix",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741468880,
+        "narHash": "sha256-2iLMvd5sOBTFDTbUifXoc28dF9FdmiD/yGQ6wg3jx+8=",
+        "owner": "alyraffauf",
+        "repo": "secrets",
+        "rev": "641e43b99d957cb43e8c40c12dec3ee947cad428",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alyraffauf",
+        "repo": "secrets",
+        "type": "github"
       }
     },
     "systems": {
