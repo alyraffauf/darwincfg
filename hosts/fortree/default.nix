@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   self,
@@ -47,6 +48,50 @@
   };
 
   nix = {
+    buildMachines = let
+      sshUser = "root";
+      sshKey = "/Users/aly/.ssh/id_ed25519";
+    in
+      lib.filter (m: m.hostName != "${config.networking.hostName}") [
+        {
+          inherit sshUser sshKey;
+          hostName = "lilycove";
+          maxJobs = 6;
+          speedFactor = 4;
+          supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+          system = "x86_64-linux";
+        }
+
+        {
+          inherit sshUser sshKey;
+          hostName = "mauville";
+          maxJobs = 4;
+          speedFactor = 1;
+          supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+          system = "x86_64-linux";
+        }
+
+        {
+          inherit sshUser sshKey;
+          hostName = "slateport";
+          maxJobs = 4;
+          speedFactor = 1;
+          supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+          system = "x86_64-linux";
+        }
+
+        {
+          inherit sshUser sshKey;
+          hostName = "roxanne";
+          maxJobs = 4;
+          speedFactor = 1;
+          supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+          system = "aarch64-linux";
+        }
+      ];
+
+    distributedBuilds = true;
+
     gc = {
       automatic = true;
 
@@ -74,6 +119,7 @@
     };
 
     settings = {
+      builders-use-substitutes = true;
       experimental-features = "nix-command flakes";
       trusted-users = ["@admin"];
     };
@@ -81,10 +127,54 @@
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    silent = true;
+  programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      silent = true;
+    };
+
+    ssh.knownHosts = {
+      fallarbor = {
+        hostNames = ["fallarbor" "fallarbor.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_fallarbor.pub";
+      };
+
+      lilycove = {
+        hostNames = ["lilycove" "lilycove.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_lilycove.pub";
+      };
+
+      mauville = {
+        hostNames = ["mauville" "mauville.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_mauville.pub";
+      };
+
+      petalburg = {
+        hostNames = ["petalburg" "petalburg.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_petalburg.pub";
+      };
+
+      roxanne = {
+        hostNames = ["roxanne" "roxanne.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_roxanne.pub";
+      };
+
+      slateport = {
+        hostNames = ["slateport" "slateport.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_slateport.pub";
+      };
+
+      sootopolis = {
+        hostNames = ["sootopolis" "sootopolis.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_sootopolis.pub";
+      };
+
+      verdanturf = {
+        hostNames = ["verdanturf" "verdanturf.local"];
+        publicKey = builtins.readFile "${self.inputs.secrets}/publicKeys/root_verdanturf.pub";
+      };
+    };
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
