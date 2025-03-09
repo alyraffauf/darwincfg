@@ -8,7 +8,7 @@
       top = 3;
     };
 
-    source = "macos_small";
+    type = "small";
   };
 
   modules = [
