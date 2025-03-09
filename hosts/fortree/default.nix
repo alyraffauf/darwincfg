@@ -43,7 +43,24 @@
     localHostName = "fortree";
   };
 
-  nix.enable = false; # We use determinate's distro (for now).
+  nix = {
+    gc = {
+      automatic = true;
+
+      interval = [
+        {
+          Hour = 9;
+        }
+      ];
+    };
+
+    linux-builder.enable = true;
+
+    settings = {
+      experimental-features = "nix-command flakes";
+      trusted-users = ["@admin"];
+    };
+  };
 
   nixpkgs = {
     config.allowUnfree = true;
