@@ -1,5 +1,6 @@
 {self, ...}: {
   imports = [
+    ./fastfetch
     ./firefox
     ./helix
     ./mail
