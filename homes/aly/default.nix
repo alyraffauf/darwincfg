@@ -1,10 +1,11 @@
 {self, ...}: {
   imports = [
+    ./firefox
     ./helix
     ./mail
+    ./secrets.nix
     ./shell
     ./vsCode
-    ./secrets.nix
     self.inputs.agenix.homeManagerModules.default
   ];
 

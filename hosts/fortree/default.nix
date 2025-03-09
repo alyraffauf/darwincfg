@@ -29,6 +29,7 @@
       "ghostty"
       "obsidian"
       "signal"
+      "thunderbird"
     ];
 
     onActivation = {
@@ -76,10 +77,7 @@
     };
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    hostPlatform = "aarch64-darwin";
-  };
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   programs.direnv = {
     enable = true;

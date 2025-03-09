@@ -19,6 +19,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur.url = "github:nix-community/NUR";
+
     secrets = {
       url = "github:alyraffauf/secrets";
       flake = false;
@@ -34,14 +36,25 @@
       self.inputs.nixpkgs.lib.genAttrs allSystems (system:
         f {
           pkgs = import self.inputs.nixpkgs {
-            inherit system;
+            inherit overlays system;
             config.allowUnfree = true;
           };
         });
+
+    overlays = [
+      self.inputs.nur.overlays.default
+    ];
   in {
     darwinConfigurations."fortree" = self.inputs.nix-darwin.lib.darwinSystem {
       modules = [
         ./hosts/fortree
+
+        {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+          };
+        }
       ];
 
       specialArgs = {inherit self;};
