@@ -112,6 +112,7 @@
         AppleShowAllFiles = true; # show hidden files
         CreateDesktop = false; # do not show icons on desktop
         FXDefaultSearchScope = "SCcf"; # search current folder by default
+        NewWindowTarget = "Home";
         ShowPathbar = true; # show path bar
         ShowStatusBar = true; # show status bar
       };
