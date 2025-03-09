@@ -27,6 +27,7 @@
     casks = [
       "firefox"
       "ghostty"
+      "macfuse"
       "obsidian"
       "signal"
       "thunderbird"
