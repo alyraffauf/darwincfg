@@ -10,6 +10,12 @@
     vscode
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.ubuntu-sans
+    source-serif-pro
+  ];
+
   homebrew = {
     enable = true;
 
