@@ -30,6 +30,7 @@
       "macfuse"
       "obsidian"
       "signal"
+      "submariner"
       "thunderbird"
     ];
 
